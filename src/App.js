@@ -19,13 +19,11 @@ class App extends React.Component {
 
   componentDidMount() {
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      console.log("userAuth", userAuth);
       if (userAuth) {
         const { setCurrentUser } = this.props;
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShop => {
-          console.log("setting user to ", snapShop);
           setCurrentUser({
             id: snapShop.id,
             ...snapShop.data()
